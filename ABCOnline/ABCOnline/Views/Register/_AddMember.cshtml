@@ -1,0 +1,68 @@
+﻿
+@{
+    var data = (List<Register>)ViewBag.dataList;
+    //var data = (List<Register>)Session["dataList"] ;
+}
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Address</th>
+                <th>Age</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (data != null && data.Count > 0)
+            {
+                foreach (var item in data)
+                {
+                    <tr>
+                        <td>
+                            @item.FirstName
+                        </td>
+                        <td>
+                            @item.LastName
+                        </td>
+                        <td>
+                            @item.Address
+                        </td>
+                        <td>
+                            @item.Age
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detail", "Detail"  ,new { id = item.id })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit"  ,new { id = item.id })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete"  ,new { id = item.id })
+                        </td>
+                    </tr>
+
+
+                }
+
+            }
+            else
+            {
+
+                <tr>
+                    <td colspan="20">
+                        <center><div> "ยังไม่มีสมาชิก"</div></center>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

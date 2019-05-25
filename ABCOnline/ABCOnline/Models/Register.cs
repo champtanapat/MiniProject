@@ -7,28 +7,25 @@ using System.Web;
 
 namespace ABCOnline.Models
 {
-    public class Member
+    public class Registers
     {
-        [Display(Name = "Fist Name")]
+        public int Id { get; set; }
+        public int age { get; set; }
+
+        [Display(Name = "FistName")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน")]
         public string firstName { get; set; }
 
 
-        [Display(Name = "Last Name")]
-
+        [Display(Name = "LastName")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน")]
         public string lastName { get; set; }
 
-
+        [Display(Name = "Address")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน")]
         public string address { get; set; }
 
-
-        [Required(ErrorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน")]
-        public string age { get; set; }
-
-
-
+        [Display(Name = "Birthday")]
         [Required(ErrorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน")]
         public string birthday { get; set; }
     }
