@@ -17,7 +17,7 @@
 
 <h2>Register</h2>
 <div class="row">
-    @using (Ajax.BeginForm("Save", "Register", new AjaxOptions { HttpMethod = FormMethod.Post.ToString(), OnSuccess = "Success()" ,UpdateTargetId="AddMember"}))
+    @using (Ajax.BeginForm("Save", "Register", new AjaxOptions { HttpMethod = FormMethod.Post.ToString(), OnSuccess = "Success()" }))
     {
         
         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -74,11 +74,9 @@
 <script>
   
     $(document).ready(function () {
-        var g = $("#Id").val('');
+        var g = $("#Id").val();
     });
-    function Success() {
-         $("#Id").val(''); $("#firstName").val('');$("#lastName").val('');$("#address").val('');$("#birthday").val('');
-    }
+   
     function Cancel() {
         window.location = "/Register/Index";
     }

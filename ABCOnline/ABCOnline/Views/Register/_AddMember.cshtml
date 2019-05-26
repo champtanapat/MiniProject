@@ -40,16 +40,14 @@
                             @item.Age
                         </td>
                         <td>
-                            @Html.ActionLink("Detail", "Detail", new { id = item.id })
-                            
-
-                            </td>
+                            @Html.ActionLink("Detail", "Detail"  ,new { id = item.id })
+                        </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit"  ,new { id = item.id })
                         </td>
                         <td>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id } )
-                            </td>
+                            @Html.ActionLink("Delete", "Delete"  ,new { id = item.id })
+                        </td>
                     </tr>
 
 
