@@ -1,6 +1,9 @@
 ﻿using ABCOnline.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +14,9 @@ namespace ABCOnline.Controllers
     {
         // GET: Register
         TestEntities1 db = new TestEntities1();
+        SqlCommand cmd = null;
+        SqlConnection sqlConn = null;
+        SqlDataReader reader = null;
         public ActionResult Index(int? Id)
         {
             Registers register = new Registers();
@@ -50,9 +56,9 @@ namespace ABCOnline.Controllers
             {
 
             }
-            //var allRegister = (from s in db.Registers select s).ToList();
-            //ViewBag.dataList = allRegister;
-            return RedirectToAction("Index");
+            var allRegister = (from s in db.Registers select s).ToList();
+            ViewBag.dataList = allRegister;
+            return PartialView("_AddMember");
         }
 
         private int CalAge(DateTime? birthday)
@@ -90,14 +96,13 @@ namespace ABCOnline.Controllers
                         };
               
                 }
-            var allRegister = (from s in db.Registers select s).ToList();
-            ViewBag.dataList = allRegister;
             return View("Index", register);
         }
 
-        public ActionResult Delete(int? Id)
+        public ActionResult Delete(int? Id) 
         {
-           
+            SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBase"].ConnectionString);
+            cnn.Open();
             var del = db.Registers.Find(Id);
             try
             {
@@ -107,14 +112,30 @@ namespace ABCOnline.Controllers
                 }
                 else
                 {
-                    db.Registers.Remove(del);
-                    db.SaveChanges();
+                    string sql = "EXEC  dbo.DeleteMember @IdMember ";
+                    cmd = new SqlCommand(sql);
+                    cmd.Connection = cnn;
+                    cmd.Parameters.Add("@IdMember", SqlDbType.NVarChar, 10);
+                    cmd.Parameters["@IdMember"].Value = Id.ToString();
+                    var ss = cmd.ExecuteNonQuery();
+                    cnn.Close();
+
+                    //reader = cmd.ExecuteReader();
+                    //Register register = new Register();
+                    //while (reader.Read())
+                    //{
+                    //    register.FirstName = reader["FirstName"].ToString();
+                    //    register.LastName = reader["LastName"].ToString();
+                    //    register.Address = reader["Address"].ToString();
+                    //    register.Age = reader["Age"] != null ? Convert.ToInt32(reader["Age"]) : 0;
+                    //}
+
                 }
             }
             catch (Exception ex)
             {
-               
             }
+
             return RedirectToAction("Index");
         }
 
