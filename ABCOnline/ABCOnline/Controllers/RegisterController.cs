@@ -30,7 +30,7 @@ namespace ABCOnline.Controllers
             try
             {
                 #region update 
-                if (register.id != null && register.id != 0)
+                if (register.id != 0)
                 {
                     Register update_Data = db.Registers.Where(s => s.id == register.id).FirstOrDefault();
                     update_Data.FirstName = register.FirstName.ToString();
